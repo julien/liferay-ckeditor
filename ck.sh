@@ -19,6 +19,8 @@ function check() {
 		exit 1
 	fi
 
+	git checkout liferay
+
 	cd ..
 }
 
