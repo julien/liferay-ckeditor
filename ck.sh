@@ -284,9 +284,31 @@ case "$COMMAND" in
 				git commit -m "Update ckeditor-dev to $commitmsg"
 
 				echo
-				echo "✅ DONE"
+				echo "Do you want to rebase the updated ckeditor submodule with the liferay branch?"
 				echo
-				echo "To re-apply patches on top of the new version, run: \`ck.sh setup\`"
+				echo "⚠️  WARNING"
+				echo
+				echo "This might cause conflicts, which will have to be solved manually"
+				echo
+
+				read -r -p "Are you sure you want to continue? [y/n] " yn
+				case $yn in
+					[Yy]*)
+						cd ckeditor-dev
+
+						git rebase HEAD liferay
+
+						echo
+						echo "✅ DONE"
+						echo
+						;;
+					*)
+						echo
+						echo "Aborting."
+						echo
+						exit
+						;;
+				esac
 				;;
 			*)
 				echo
