@@ -1,0 +1,24 @@
+From f276ec567f8f2a79a02538bc9c963716518ccdbf Mon Sep 17 00:00:00 2001
+From: Julien Castelain <julien.castelain@liferay.com>
+Date: Wed, 19 May 2021 17:25:03 +0200
+Subject: [PATCH] LPS-131699 Add null check
+
+---
+ core/event.js | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/core/event.js b/core/event.js
+index 449840c2a..91c2d50ae 100644
+--- a/core/event.js
++++ b/core/event.js
+@@ -164,7 +164,9 @@ if ( !CKEDITOR.event ) {
+ 				}
+ 
+ 				function removeListener() {
+-					me.removeListener( eventName, listenerFunction );
++					if (me) {
++						me.removeListener( eventName, listenerFunction );
++					}
+ 				}
+ 
+ 				var event = getEntry.call( this, eventName );
